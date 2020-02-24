@@ -1,1 +1,2 @@
-export * from "./treetool";
+import * as treetool from "./treetool";
+export { treetool };
