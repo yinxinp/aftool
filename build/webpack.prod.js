@@ -14,7 +14,7 @@ const prodConfig = {
   },
   output: {
     filename: "aftool.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "../dist"),
     library: "aftool",
     libraryTarget: "umd"
   }
