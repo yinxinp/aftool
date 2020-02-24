@@ -1,10 +1,7 @@
 /.idea
 .project
-.classpath
-.c9/
 *.launch
 .settings/
 *.sublime-workspace
 /node_modules
-/dist
 /tmp
