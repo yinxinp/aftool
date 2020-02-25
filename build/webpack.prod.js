@@ -1,7 +1,9 @@
 const path = require("path");
+const commonConfig = require("./webpack.common");
+const merge = require("webpack-merge");
 const prodConfig = {
   mode: "production",
-  entry: "./src/index.js",
+  entry: "./src/index.ts",
   module: {
     rules: [
       // {
@@ -19,4 +21,4 @@ const prodConfig = {
     libraryTarget: "umd"
   }
 };
-module.exports = prodConfig;
+module.exports = merge(prodConfig, commonConfig);

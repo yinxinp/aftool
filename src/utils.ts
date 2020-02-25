@@ -1,8 +1,8 @@
 /**
  * 判断参数对象的各个值是否为空或者undfined或者为null
- * @param {Object} param 参数对象
+ * @param param 参数对象
  */
-export function isAllNullorUndefined(param) {
+export function isAllNullorUndefined(param: any) :boolean{
   let result = true;
   if (param) {
     result = !Object.keys(param).some(x => {
