@@ -1,9 +1,9 @@
 /**
  * 对流控制的类
  */
-export default class {
-  static _prevTime?: number;
-  static _timeout?: any;
+export class StreamControl {
+  private static _prevTime?: number;
+  private static _timeout?: any;
   /**
    * 解决在同一时间内平凡输入执行延迟执行，在延迟时间内会取消上一次的还未执行的程序执行最新的程序，一般用于查询
    * @param actions 目标函数
@@ -18,33 +18,33 @@ export default class {
     immediate?: boolean
   ) {
     if (cancelToken) {
-      clearTimeout(this._timeout);
-      this._timeout = null;
-      this._prevTime = undefined;
+      clearTimeout(StreamControl._timeout);
+      StreamControl._timeout = null;
+      StreamControl._prevTime = undefined;
       return;
     }
     const executeTime = new Date().getTime();
-    if (immediate && !this._prevTime) {
+    if (immediate && !StreamControl._prevTime) {
       actions();
-      this._prevTime = executeTime;
+      StreamControl._prevTime = executeTime;
       return;
     }
-    if (this._prevTime===undefined) {
-      this._prevTime = executeTime;
+    if (StreamControl._prevTime === undefined) {
+      StreamControl._prevTime = executeTime;
     }
-    if (executeTime - this._prevTime > delay) {
+    if (executeTime - StreamControl._prevTime > delay) {
       actions();
-      this._prevTime = undefined;
+      StreamControl._prevTime = undefined;
     } else {
-      if (this._timeout) {
-        window.clearTimeout(this._timeout);
-        this._timeout = null;
+      if (StreamControl._timeout) {
+        window.clearTimeout(StreamControl._timeout);
+        StreamControl._timeout = null;
       }
-      this._timeout = window.setTimeout(() => {
-        this._prevTime = undefined;
+      StreamControl._timeout = window.setTimeout(() => {
+        StreamControl._prevTime = undefined;
         actions();
       }, delay);
     }
-    this._prevTime = executeTime;
+    StreamControl._prevTime = executeTime;
   }
 }

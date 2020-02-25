@@ -1,9 +1,9 @@
 /**
  * 对流控制的类
  */
-export default class {
-    static _prevTime: number;
-    static _timeout: any;
+export declare class StreamControl {
+    static _prevTime?: number;
+    static _timeout?: any;
     /**
      * 解决在同一时间内平凡输入执行延迟执行，在延迟时间内会取消上一次的还未执行的程序执行最新的程序，一般用于查询
      * @param actions 目标函数
