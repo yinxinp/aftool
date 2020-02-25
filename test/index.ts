@@ -1,4 +1,4 @@
-import { treetool } from "../src";
+import { treetool, WaitAction, StreamControl } from "../src";
 import { generatorTree } from "./data";
 /**
  * 以下测试数据
@@ -27,3 +27,44 @@ const standardized = treetool.standardized(treeData01, {
   keyProp: "test04"
 });
 console.log("standardized", standardized);
+
+/**************** waitAction 等待执行*/
+//1.声明对象
+const waitAction: WaitAction = new WaitAction(
+  ["ok1", "ok2"],
+  //注册一个执行函数
+  (params: string) => {
+    console.log(params);
+  }
+);
+//在任意时候执行,他将会在第二个ok2被标记完成之后执行
+waitAction.action("我终于被执行了呀!!!!!!!");
+//有两个异步操作但是我不知道什么时候他们呢谁先执行完,但是异步操作2必须在异步操作1完成之后才可以执行
+
+function asyncFunc() {
+  setTimeout(() => {
+    //操作2
+    waitAction.ready("ok2", () => {
+      console.log("操作2执行完毕");
+    });
+  }, Math.floor(Math.random() * 5000));
+
+  setTimeout(() => {
+    //操作1
+    waitAction.ready("ok1", () => {
+      console.log("操作1执行完毕");
+    });
+  }, Math.floor(Math.random() * 5000));
+}
+
+asyncFunc();
+
+/****************测试streamControl*/
+const btn01 = document.querySelector("#btn01");
+if (btn01) {
+  btn01.addEventListener("click", () => {
+    StreamControl.debounce(() => {
+      alert("我被执行了");
+    }, 1000);
+  });
+}

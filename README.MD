@@ -1,9 +1,39 @@
 # aftool
 
 - `example`
+  > data.js
 
 ```javascript
-import { treetool } from "aftool";
+export function generatorTree(num = 0, deep = 0, currentIndex = 0) {
+  let container = [];
+  if (num) {
+    for (let i = 0; i < num; i++) {
+      let children = {};
+      if (currentIndex < deep) {
+        currentIndex++;
+        children.children = generatorTree(num, deep, currentIndex);
+      }
+      container.push({
+        test01: `test01-${i}-${currentIndex}`,
+        test02: `test02-${i}-${currentIndex}`,
+        test03: `test03-${i}-${currentIndex}`,
+        test04: `test04-${i}-${currentIndex}`,
+        test05: `test05-${i}-${currentIndex}`,
+        test06: `test06-${i}-${currentIndex}`,
+        test07: `test07-${i}-${currentIndex}`,
+        random: Math.floor(Math.random() * 100),
+        ...children
+      });
+    }
+  }
+  return container;
+}
+```
+
+> index.ts
+
+```typescript
+import { treetool, WaitAction, StreamControl } from "aftool";
 import { generatorTree } from "./data";
 /**
  * 以下测试数据
@@ -11,12 +41,12 @@ import { generatorTree } from "./data";
 const treeData01 = generatorTree(20, 5);
 console.log("treeData01", treeData01);
 
-const find = treetool.find(treeData01, item => item.random === 23);
+const find = treetool.find(treeData01, (item: any) => item.random === 23);
 console.log("find", find);
 
 const fliter = treetool.fliter(
   treeData01,
-  (item, deep) => item.random >= deep + 10
+  (item: any, deep: number) => item.random >= deep + 10
 );
 console.log("fliter", fliter);
 
@@ -32,4 +62,45 @@ const standardized = treetool.standardized(treeData01, {
   keyProp: "test04"
 });
 console.log("standardized", standardized);
+
+/**************** waitAction 等待执行*/
+//1.声明对象
+const waitAction: WaitAction = new WaitAction(
+  ["ok1", "ok2"],
+  //注册一个执行函数
+  (params: string) => {
+    console.log(params);
+  }
+);
+//在任意时候执行,他将会在第二个ok2被标记完成之后执行
+waitAction.action("我终于被执行了呀!!!!!!!");
+//有两个异步操作但是我不知道什么时候他们呢谁先执行完,但是异步操作2必须在异步操作1完成之后才可以执行
+
+function asyncFunc() {
+  setTimeout(() => {
+    //操作2
+    waitAction.ready("ok2", () => {
+      console.log("操作2执行完毕");
+    });
+  }, Math.floor(Math.random() * 3000));
+
+  setTimeout(() => {
+    //操作1
+    waitAction.ready("ok1", () => {
+      console.log("操作1执行完毕");
+    });
+  }, Math.floor(Math.random() * 3000));
+}
+
+asyncFunc();
+
+/****************测试streamControl*/
+const btn01 = document.querySelector("#btn01");
+if (btn01) {
+  btn01.addEventListener("click", () => {
+    StreamControl.debounce(() => {
+      alert("我被执行了");
+    }, 1000);
+  });
+}
 ```

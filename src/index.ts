@@ -1,2 +1,4 @@
 import treetool from "./treetool";
-export { treetool };
+import StreamControl from "./streamControl";
+import { WaitAction } from "./waitAction";
+export { treetool, StreamControl, WaitAction };
