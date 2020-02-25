@@ -2,8 +2,8 @@
  * 对流控制的类
  */
 export default class {
-  static _prevTime: number;
-  static _timeout: any;
+  static _prevTime?: number;
+  static _timeout?: any;
   /**
    * 解决在同一时间内平凡输入执行延迟执行，在延迟时间内会取消上一次的还未执行的程序执行最新的程序，一般用于查询
    * @param actions 目标函数
@@ -20,7 +20,7 @@ export default class {
     if (cancelToken) {
       clearTimeout(this._timeout);
       this._timeout = null;
-      this._prevTime = 0;
+      this._prevTime = undefined;
       return;
     }
     const executeTime = new Date().getTime();
@@ -29,19 +29,19 @@ export default class {
       this._prevTime = executeTime;
       return;
     }
-    if (!this._prevTime) {
+    if (this._prevTime===undefined) {
       this._prevTime = executeTime;
     }
     if (executeTime - this._prevTime > delay) {
       actions();
-      this._prevTime = 0;
+      this._prevTime = undefined;
     } else {
       if (this._timeout) {
-        clearTimeout(this._timeout);
+        window.clearTimeout(this._timeout);
         this._timeout = null;
       }
-      this._timeout = setTimeout(() => {
-        this._prevTime = 0;
+      this._timeout = window.setTimeout(() => {
+        this._prevTime = undefined;
         actions();
       }, delay);
     }
