@@ -18,18 +18,18 @@ interface StandardizedType {
  * @param childrenProp 子映射的字段名称
  * @param containMeta 是否包含元数据 默认false
  */
-export const standardized = (
-  treeNodes: Object[],
+const standardized = (
+  treeNodes: any[],
   config: StandardizedType = {},
   containMeta = false
-): Object[] => {
+): any[] => {
   let {
     labelProp = "label",
     valueProp = "value",
     keyProp = "key",
     childrenProp = "children"
   } = config;
-  const result: Object[] = treeNodes.map((node: any) => {
+  const result: any[] = treeNodes.map((node: any) => {
     let children = node[childrenProp];
     if (children) {
       children = standardized(
@@ -74,13 +74,13 @@ export const standardized = (
  * @param filter 过滤符合条件的树
  * @param autoKey 是否自动加上一个key字段
  */
-export const flatTree = (
-  treeData: Object[],
+const flatTree = (
+  treeData: any[],
   filter: Function,
   autoKey?: boolean
-): Object[] => {
+): any[] => {
   if (Array.isArray(treeData)) {
-    let result: Object[] = [];
+    let result: any[] = [];
     treeData.forEach((data: any) => {
       const { children, ...other } = data;
       (filter && filter(other) && result.push(other)) ||
@@ -95,7 +95,7 @@ export const flatTree = (
   return [];
 };
 
-function addKey(list: Object[]) {
+function addKey(list: any[]) {
   return list.map((x, i) => {
     return { ...x, key: i };
   });
@@ -107,8 +107,8 @@ function addKey(list: Object[]) {
  * @param foldKey 要根据哪个属性展开树 默认是id，注意这个值是唯一的才行
  * @param hasChildren 要不要返回带children的结构
  */
-export const toMap = (
-  treeData: Object[],
+const toMap = (
+  treeData: any[],
   foldKey = "id",
   hasChildren?: boolean
 ): Object => {
@@ -138,14 +138,14 @@ export const toMap = (
  * @param  addFunc 向每一项中添加新元素 (item,deep) => condition return Boolean
  * @param  addFunc 当前树的初始深度 一般不配置
  */
-export const fliter = (
-  tree: Object[],
+const fliter = (
+  tree: any[],
   func: Function,
   addFunc?: Function,
   index?: number
-): Object[] => {
+): any[] => {
   let myIndex = index || 0;
-  return tree.reduce((prev: Object[], current: any) => {
+  return tree.reduce((prev: any[], current: any) => {
     if (func && !func(current, myIndex)) return prev;
     const additem = (addFunc && addFunc(current, myIndex)) || {};
     if (current.children) {
@@ -166,25 +166,21 @@ export const fliter = (
  * @param conditions 搜索条件
  * @param containChildren 查询结果是否包含子
  */
-export function search(
+function search(
   treeData: Array<Object>,
-  conditions: Object,
+  conditions: any,
   containChildren?: Boolean
-): Array<Object> {
-  if (!Array.isArray(treeData) || conditions) {
-    console.error("参数不符合！");
-    return [];
-  }
+): Array<any> {
   if (utils.isAllNullorUndefined(conditions)) {
     return treeData;
   }
   let contitionsKeys = Object.keys(conditions);
-  let results: Array<Object> = [];
+  let results: Array<any> = [];
   const normalType = ["boolean", "number"];
   treeData.forEach((x: any) => {
     const { children, ...other } = x;
     const isOk = contitionsKeys.every(contitionsKey => {
-      const condition: Object = conditions[contitionsKey];
+      const condition: any = conditions[contitionsKey];
       if (condition === null || typeof condition === "undefined") {
         //当查询条件为空我们默认查询匹配全部
         return true;
@@ -201,11 +197,11 @@ export function search(
       throw "查询条件不是支持的类型，支持string,number,boolean,function";
     });
     if (isOk) {
-      const currentResult: Object = containChildren ? x : other;
+      const currentResult: any = containChildren ? x : other;
       results.push(currentResult);
     }
     if (children) {
-      const tempResult: Array<Object> = search(children, conditions);
+      const tempResult: Array<any> = search(children, conditions);
       results = [...results, ...tempResult];
     }
   });
@@ -216,7 +212,7 @@ export function search(
  * @param tree 源
  * @param func 过滤函数
  */
-export function find(tree: Object[], func: Function): any {
+function find(tree: any[], func: Function): any {
   const length = tree.length;
   for (let i = 0; i < length; i++) {
     const currentItem: any = tree[i];
@@ -231,3 +227,11 @@ export function find(tree: Object[], func: Function): any {
   }
   return null;
 }
+
+export default {
+  fliter,
+  search,
+  find,
+  standardized,
+  toMap
+};

@@ -1,6 +1,7 @@
 const path = require("path");
 const commonConfig = require("./webpack.common");
 const merge = require("webpack-merge");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const prodConfig = {
   mode: "production",
   entry: "./src/index.ts",
@@ -14,6 +15,7 @@ const prodConfig = {
       // }
     ]
   },
+  plugins: [new CleanWebpackPlugin()],
   output: {
     filename: "aftool.js",
     path: path.resolve(__dirname, "../dist"),
@@ -21,4 +23,4 @@ const prodConfig = {
     libraryTarget: "umd"
   }
 };
-module.exports = merge(prodConfig, commonConfig);
+module.exports = merge(commonConfig, prodConfig);
