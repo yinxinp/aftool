@@ -17,7 +17,7 @@ const prodConfig = {
   },
   plugins: [new CleanWebpackPlugin()],
   output: {
-    filename: "aftool.js",
+    filename: "index.js",
     path: path.resolve(__dirname, "../dist"),
     library: "aftool",
     libraryTarget: "umd"
