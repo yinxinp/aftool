@@ -1,6 +1,6 @@
 {
   "name": "aftool",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "aftool 个人用的一些基本库",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

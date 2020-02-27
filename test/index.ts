@@ -1,4 +1,4 @@
-import { treetool, WaitAction, StreamControl } from "../src";
+import { treetool, WaitAction, StreamControl, Debounce } from "../src";
 import { generatorTree } from "./data";
 /**
  * 以下测试数据
@@ -67,4 +67,20 @@ if (btn01) {
       alert("我被执行了");
     }, 1000);
   });
+}
+// 实例化防抖测试
+const input01 = document.querySelector("#input01");
+if (input01) {
+  input01.addEventListener("input", handleInput01);
+}
+
+const debouce01 = new Debounce(); //新建防抖器
+
+function handleInput01(ev: any) {
+  //利用闭包声明一个执行函数
+  const action = () => {
+    console.log("result===>", ev.target.value || "内容为空");
+  };
+  // 调用 go 扔到 容器中执行
+  debouce01.go(action);
 }
