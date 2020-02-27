@@ -33,7 +33,7 @@ export function generatorTree(num = 0, deep = 0, currentIndex = 0) {
 > index.ts
 
 ```typescript
-import { treetool, WaitAction, StreamControl } from "aftool";
+import { treetool, WaitAction, StreamControl, Debounce } from "aftool";
 import { generatorTree } from "./data";
 /**
  * 以下测试数据
@@ -82,14 +82,14 @@ function asyncFunc() {
     waitAction.ready("ok2", () => {
       console.log("操作2执行完毕");
     });
-  }, Math.floor(Math.random() * 3000));
+  }, Math.floor(Math.random() * 5000));
 
   setTimeout(() => {
     //操作1
     waitAction.ready("ok1", () => {
       console.log("操作1执行完毕");
     });
-  }, Math.floor(Math.random() * 3000));
+  }, Math.floor(Math.random() * 5000));
 }
 
 asyncFunc();
@@ -102,5 +102,21 @@ if (btn01) {
       alert("我被执行了");
     }, 1000);
   });
+}
+// 实例化防抖测试
+const input01 = document.querySelector("#input01");
+if (input01) {
+  input01.addEventListener("input", handleInput01);
+}
+
+const debouce01 = new Debounce(); //新建防抖器
+
+function handleInput01(ev: any) {
+  //利用闭包声明一个执行函数
+  const action = () => {
+    console.log("result===>", ev.target.value || "内容为空");
+  };
+  // 调用 go 扔到 容器中执行
+  debouce01.go(action);
 }
 ```

@@ -1,15 +1,34 @@
 /**
- * 对流控制的类
+ * 对流控制的类静态类无需实例化,但是同时只能执行一个防抖程序,如果相同时执行多个防抖请使用Debounce类
  */
 export declare class StreamControl {
-    static _prevTime?: number;
-    static _timeout?: any;
+    private static _prevTime?;
+    private static _timeout?;
     /**
      * 解决在同一时间内平凡输入执行延迟执行，在延迟时间内会取消上一次的还未执行的程序执行最新的程序，一般用于查询
-     * @param actions 目标函数
+     * @param action 目标函数
      * @param delay 延迟执行的时间单位毫秒
      * @param cancelToken 取消钩子
      * @param immediate 是否首次立即执行
      */
-    static debounce(actions: Function, delay: number, cancelToken?: boolean, immediate?: boolean): void;
+    static debounce(action: debounceAction, delay: number, cancelToken?: boolean, immediate?: boolean): void;
 }
+interface debounceAction {
+    (): void;
+}
+/**
+ * 防抖类需要实例化
+ */
+export declare class Debounce {
+    private _prevTime?;
+    private _timeout?;
+    /**
+     * 开始执行防抖
+     * @param cancelToken 取消执行标志
+     * @param immediate 是否立即执行
+     * @param action 要呗防抖执行的函数
+     * @param _delay 要延迟的时间单位ms默认延迟300ms
+     */
+    go(action: debounceAction, delay?: number, cancelToken?: boolean, immediate?: boolean): void;
+}
+export {};
