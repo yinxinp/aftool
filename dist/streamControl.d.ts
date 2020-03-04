@@ -11,7 +11,7 @@ export declare class StreamControl {
      * @param cancelToken 取消钩子
      * @param immediate 是否首次立即执行
      */
-    static debounce(action: debounceAction, delay: number, cancelToken?: boolean, immediate?: boolean): void;
+    static debounce(action: debounceAction, delay?: number, immediate?: boolean, cancelToken?: boolean): void;
 }
 interface debounceAction {
     (): void;
@@ -20,8 +20,8 @@ interface debounceAction {
  * 防抖类需要实例化
  */
 export declare class Debounce {
-    private _prevTime?;
-    private _timeout?;
+    _prevTime?: number;
+    _timeout?: number;
     /**
      * 开始执行防抖
      * @param cancelToken 取消执行标志
@@ -29,6 +29,6 @@ export declare class Debounce {
      * @param action 要呗防抖执行的函数
      * @param _delay 要延迟的时间单位ms默认延迟300ms
      */
-    go(action: debounceAction, delay?: number, cancelToken?: boolean, immediate?: boolean): void;
+    go(action: debounceAction, delay?: number, immediate?: boolean, cancelToken?: boolean): void;
 }
 export {};

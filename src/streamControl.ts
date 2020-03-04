@@ -13,9 +13,9 @@ export class StreamControl {
    */
   static debounce(
     action: debounceAction,
-    delay: number,
-    cancelToken?: boolean,
-    immediate?: boolean
+    delay?: number,
+    immediate?: boolean,
+    cancelToken?: boolean
   ) {
     startAction(StreamControl, action, delay, cancelToken, immediate);
   }
@@ -28,8 +28,8 @@ interface debounceAction {
  * 防抖类需要实例化
  */
 export class Debounce {
-  private _prevTime?: number;
-  private _timeout?: number;
+  _prevTime?: number;
+  _timeout?: number;
   /**
    * 开始执行防抖
    * @param cancelToken 取消执行标志
@@ -40,8 +40,8 @@ export class Debounce {
   go(
     action: debounceAction,
     delay: number = 300,
-    cancelToken?: boolean,
-    immediate?: boolean
+    immediate?: boolean,
+    cancelToken?: boolean
   ) {
     startAction(this, action, delay, cancelToken, immediate);
   }

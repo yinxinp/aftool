@@ -81,6 +81,6 @@ function handleInput01(ev: any) {
   const action = () => {
     console.log("result===>", ev.target.value || "内容为空");
   };
-  // 调用 go 扔到 容器中执行
-  debouce01.go(action);
+  // 调用 go 扔到 容器中执行 第三个参数为true第一次输入会立即执行 后面防抖
+  debouce01.go(action, 1000, true);
 }
