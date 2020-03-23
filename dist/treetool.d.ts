@@ -1,5 +1,5 @@
 interface StandardizedType {
-    labelProp?: string;
+    labelProp?: any;
     valueProp?: string;
     keyProp?: string;
     childrenProp?: string;

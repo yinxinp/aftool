@@ -1,6 +1,6 @@
 import * as utils from "./utils";
 interface StandardizedType {
-  labelProp?: string;
+  labelProp?: any;
   valueProp?: string;
   keyProp?: string;
   childrenProp?: string;
@@ -47,10 +47,15 @@ const standardized = (
     const value = splitValue.reduce((prev, current) => {
       return prev[current];
     }, node);
-    const splitLabel = labelProp.split(".");
-    const title = splitLabel.reduce((prev, current) => {
-      return prev[current];
-    }, node);
+    let title;
+    if (typeof labelProp === "function") {
+      title = labelProp(node);
+    } else {
+      const splitLabel = labelProp.split(".");
+      title = splitLabel.reduce((prev: any, current: any) => {
+        return prev[current];
+      }, node);
+    }
     const key = node[keyProp];
     let temp: any = {};
     temp["value"] = value;
