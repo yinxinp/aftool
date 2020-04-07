@@ -1,4 +1,5 @@
 # aftool
+`ver 1.2.9` 添加fileTool 包含saveJson的方法用于保存json文件
 `ver 1.2.8` 添加domTool用于创建dom 的一些工具类
 
 
