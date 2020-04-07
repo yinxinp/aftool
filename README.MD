@@ -1,4 +1,6 @@
 # aftool
+`ver 1.2.8` 添加domTool用于创建dom 的一些工具类
+
 
 - `example`
   
