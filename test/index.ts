@@ -1,4 +1,4 @@
-import { treetool, WaitAction, StreamControl, Debounce } from "../src";
+import { treetool, WaitAction, StreamControl, Debounce, Waiter } from "../src";
 import { generatorTree } from "./data";
 /**
  * 以下测试数据
@@ -84,3 +84,21 @@ function handleInput01(ev: any) {
   // 调用 go 扔到 容器中执行 第三个参数为true第一次输入会立即执行 后面防抖
   debouce01.go(action, 1000, true);
 }
+
+/***Waiter测试 */
+const waiterKeys = ["a", "b", "c"];
+const myWaiter = new Waiter(waiterKeys);
+
+(async function () {
+  for (let i = 0; i < 20; i++) {
+    await new Promise(r => {
+      setTimeout(() => {
+        const index = Math.floor(Math.random() * 3);
+        myWaiter.ready(waiterKeys[index], () => {
+          console.log(`${index} 执行！`);
+        });
+        r(true);
+      }, 1000);
+    });
+  }
+})();
