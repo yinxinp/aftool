@@ -18,7 +18,7 @@ declare function search(treeData: Array<Object>, conditions: any, containChildre
  */
 declare function find(tree: any[], func: Function): any;
 declare const _default: {
-    fliter: (tree: any[], func: Function, addFunc?: Function | undefined, index?: number | undefined) => any[];
+    filter: (tree: any[], func: Function, addFunc?: Function | undefined, index?: number | undefined) => any[];
     search: typeof search;
     find: typeof find;
     standardized: (treeNodes: any[], config?: StandardizedType, containMeta?: boolean) => any[];

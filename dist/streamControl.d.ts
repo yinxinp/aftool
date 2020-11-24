@@ -9,7 +9,6 @@ export declare class StreamControl {
      * @param action 目标函数
      * @param delay 延迟执行的时间单位毫秒
      * @param cancelToken 取消钩子
-     * @param immediate 是否首次立即执行
      */
     static debounce(action: debounceAction, delay?: number, immediate?: boolean, cancelToken?: boolean): void;
 }
@@ -29,6 +28,6 @@ export declare class Debounce {
      * @param action 要呗防抖执行的函数
      * @param _delay 要延迟的时间单位ms默认延迟300ms
      */
-    go(action: debounceAction, delay?: number, immediate?: boolean, cancelToken?: boolean): void;
+    go(action: debounceAction, delay?: number, cancelToken?: boolean): void;
 }
 export {};
