@@ -9,11 +9,11 @@ console.log("treeData01", treeData01);
 const find = treetool.find(treeData01, (item: any) => item.random === 23);
 console.log("find", find);
 
-const fliter = treetool.fliter(
+const filter = treetool.filter(
   treeData01,
   (item: any, deep: number) => item.random >= deep + 10
 );
-console.log("fliter", fliter);
+console.log("filter", filter);
 
 const toMap = treetool.toMap(treeData01, "test02");
 console.log("toMap", toMap);

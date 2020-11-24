@@ -1,4 +1,3 @@
-import * as utils from "./utils";
 interface StandardizedType {
   labelProp?: any;
   valueProp?: string;
@@ -143,7 +142,7 @@ const toMap = (
  * @param  addFunc 向每一项中添加新元素 (item,deep) => condition return Boolean
  * @param  addFunc 当前树的初始深度 一般不配置
  */
-const fliter = (
+const filter = (
   tree: any[],
   func: Function,
   addFunc?: Function,
@@ -155,7 +154,7 @@ const fliter = (
     const additem = (addFunc && addFunc(current, myIndex)) || {};
     if (current.children) {
       let { children: currentChildren, ...currentItem } = current;
-      let children = fliter(currentChildren, func, addFunc, myIndex + 1);
+      let children = filter(currentChildren, func, addFunc, myIndex + 1);
       if (children.length !== 0) {
         currentItem = { ...currentItem, children };
       }
@@ -176,7 +175,7 @@ function search(
   conditions: any,
   containChildren?: Boolean
 ): Array<any> {
-  if (utils.isAllNullorUndefined(conditions)) {
+  if (isAllNullOrUndefined(conditions)) {
     return treeData;
   }
   let contitionsKeys = Object.keys(conditions);
@@ -234,9 +233,25 @@ function find(tree: any[], func: Function): any {
 }
 
 export default {
-  fliter,
+  filter,
   search,
   find,
   standardized,
   toMap
 };
+
+function isAllNullOrUndefined(param: any): boolean {
+  let result = true;
+  if (param) {
+    result = !Object.keys(param).some((x) => {
+      const property = param[x];
+      return (
+        (typeof property === "string" && property.trim() !== "") ||
+        (typeof property !== "string" && !!property) ||
+        property === 0 ||
+        property === false
+      );
+    });
+  }
+  return result;
+}

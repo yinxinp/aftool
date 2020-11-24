@@ -9,7 +9,6 @@ export class StreamControl {
    * @param action 目标函数
    * @param delay 延迟执行的时间单位毫秒
    * @param cancelToken 取消钩子
-   * @param immediate 是否首次立即执行
    */
   static debounce(
     action: debounceAction,
@@ -17,7 +16,7 @@ export class StreamControl {
     immediate?: boolean,
     cancelToken?: boolean
   ) {
-    startAction(StreamControl, action, delay, cancelToken, immediate);
+    startAction(StreamControl, action, delay, cancelToken);
   }
 }
 
@@ -40,10 +39,9 @@ export class Debounce {
   go(
     action: debounceAction,
     delay: number = 300,
-    immediate?: boolean,
     cancelToken?: boolean
   ) {
-    startAction(this, action, delay, cancelToken, immediate);
+    startAction(this, action, delay, cancelToken);
   }
 }
 /**
@@ -52,14 +50,12 @@ export class Debounce {
  * @param action
  * @param delay
  * @param cancelToken
- * @param immediate
  */
 function startAction(
   obj: any,
   action: debounceAction,
   delay: number = 0,
   cancelToken: boolean = false,
-  immediate: boolean = false
 ) {
   if (cancelToken) {
     clearTimeout(obj._timeout);
@@ -68,11 +64,6 @@ function startAction(
     return;
   }
   const executeTime = new Date().getTime();
-  if (immediate && !obj._prevTime) {
-    action();
-    obj._prevTime = executeTime;
-    return;
-  }
   if (obj._prevTime === undefined) {
     obj._prevTime = executeTime;
   }
