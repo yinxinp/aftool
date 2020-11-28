@@ -30,8 +30,13 @@ export class ArrayUtil {
    * @returns 返回被移除过的元素
    */
   static removeLast<T>(array: T[], predicate: predicate<T>): T | undefined {
-    const target = this.removeFirst(array.reverse(), predicate);
-    array.reverse();
-    return target;
+    for (let i = array.length - 1; i >= 0; i--) {
+      const target = array[i];
+      if (predicate(target)) {
+        array.splice(i, 1);
+        return target;
+      }
+    }
+    return undefined;
   }
 }
