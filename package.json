@@ -5,6 +5,7 @@
   "main": "./dist/aftool.js",
   "types": "./dist/index.d.ts",
   "scripts": {
+    "test": "jest",
     "dev": "webpack --config ./build/webpack.dev.js",
     "build": "webpack --config ./build/webpack.prod.js"
   },

@@ -1,2 +1,2 @@
-const helloWord = "xxxxx";
-console.log("helloWord", helloWord);
+import { ArrayUtil } from "./arrayUtil";
+export { ArrayUtil };
