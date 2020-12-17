@@ -1,5 +1,5 @@
-import { ArrayUtil } from "../src/arrayUtil";
-import { guid } from "../src/generateKey";
+import { ArrayUtil, KeyUtil } from "../src/";
+const guid = KeyUtil.guid;
 test("1+1", () => {
   expect(1 + 1).toBe(2);
 });

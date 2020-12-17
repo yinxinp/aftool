@@ -1,4 +1,5 @@
-import { guid } from "../src/generateKey";
+import { KeyUtil } from "../src";
+const guid = KeyUtil.guid;
 test("guid", () => {
   let isOk = true;
   for (let i = 0; i < 1000; i++) {
