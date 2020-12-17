@@ -1,9 +1,12 @@
 {
   "name": "aftool",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "description": "aftool 个人用的一些基本库",
-  "main": "./dist/index.js",
+  "main": "./dist",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "webpack-dev-server --config ./build/webpack.dev.js",
     "build": "webpack --config ./build/webpack.prod.js"

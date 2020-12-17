@@ -1,4 +1,4 @@
-import { treetool, WaitAction, StreamControl, Debounce, Waiter } from "../src";
+import { treetool, WaitAction, StreamControl, Debounce, Waiter } from "../dist";
 import { generatorTree } from "./data";
 /**
  * 以下测试数据
