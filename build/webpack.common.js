@@ -1,12 +1,12 @@
 const path = require("path");
 
-const resolve = path.resolve;
+const resolve = filename => path.resolve(__dirname, filename);
 
 module.exports = {
   entry: "./src/index.ts",
   devtool: "inline-source-map",
   output: {
-    path: resolve(__dirname, "../dist"),
+    path: resolve("../dist"),
     filename: "main.js"
   },
   module: {
@@ -14,7 +14,7 @@ module.exports = {
       {
         test: /.ts$/,
         use: "ts-loader",
-        exclude: [/node_modules/, resolve(__dirname, "./srcback")]
+        exclude: [/node_modules/, resolve("./srcback")]
       }
     ]
   },

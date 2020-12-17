@@ -39,4 +39,27 @@ export class ArrayUtil {
     }
     return undefined;
   }
+  /**
+   * 递归将树展平为hashmap
+   * @param tree
+   * @param config 展平操作的配置 keyProp:string = "id" childProp:string="children"
+   * @returns {[string]:any}
+   */
+  static flatToMap<T extends { [key: string]: any }>(
+    tree: T[] = [],
+    config?: { keyProp: string; childProp: string }
+  ): { [key: string]: T } {
+    const currentConfig = config || { keyProp: "id", childProp: "children" };
+    return tree.reduce((prev, current) => {
+      const {
+        [currentConfig.keyProp]: key,
+        [currentConfig.childProp]: children
+      } = current;
+      let childMap = {};
+      if (Array.isArray(children) && children.length > 0) {
+        childMap = this.flatToMap(children as T[], config);
+      }
+      if (current) return { ...prev, [key]: current, ...childMap };
+    }, {});
+  }
 }
