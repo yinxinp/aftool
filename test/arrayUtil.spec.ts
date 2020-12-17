@@ -8,20 +8,28 @@ test("1===1", () => {
 });
 
 test("ArrayUtil", () => {
-  const a = [
+  const a = () => [
     { name: "xxxx" },
     { name: "ssxw" },
     { name: "sdaasd" },
+    { name: "exaa" },
     { name: "exaa" }
   ];
-  expect(ArrayUtil.remove(a, item => /s/.test(item.name)).length).toBe(2);
-  expect(ArrayUtil.removeFirst(a, item => /s/.test(item.name)).name).toBe(
+  const test01 = a();
+  const removeItems = ArrayUtil.remove(test01, item => /s/.test(item.name));
+  console.log("test01", test01);
+  expect(removeItems.length).toBe(2);
+  expect(test01.length).toBe(3);
+  expect(test01[1].name).toBe("exaa");
+  expect(ArrayUtil.removeFirst(a(), item => /s/.test(item.name)).name).toBe(
     "ssxw"
   );
-  expect(ArrayUtil.removeLast(a, item => /x/.test(item.name)).name).toBe(
+  expect(ArrayUtil.removeLast(a(), item => /x/.test(item.name)).name).toBe(
     "exaa"
   );
-  expect(ArrayUtil.removeLast(a, item => /b/.test(item.name))).toBe(undefined);
+  expect(ArrayUtil.removeLast(a(), item => /b/.test(item.name))).toBe(
+    undefined
+  );
 });
 
 test("ArrayUtil.tree", () => {

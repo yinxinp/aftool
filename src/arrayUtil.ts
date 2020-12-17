@@ -1,13 +1,24 @@
 import { predicate } from "../types/common";
 export class ArrayUtil {
   /**
-   * 移除数组中符合条件的元素（不操作原数组）
+   * 移除数组中符合条件的元素（操作原数组）
    * @param array 目标数组
    * @param predicate 寻找目标的函数
-   * @returns 被移除过元素的新数组
+   * @returns 被移除的元素的数组
    */
   static remove<T>(array: T[], predicate: predicate<T>): T[] {
-    return array.filter(target => !predicate(target));
+    const removedItems = [];
+    const restItems = [];
+    for (let i = 0; i < array.length; i++) {
+      const current = array[i];
+      if (predicate(current)) {
+        removedItems.push(current);
+      } else {
+        restItems.push(current);
+      }
+    }
+    array.splice(0, array.length, ...restItems);
+    return removedItems;
   }
 
   /**
