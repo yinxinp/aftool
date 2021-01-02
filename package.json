@@ -31,7 +31,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test"
+      "pre-commit": "npm test",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
     }
   },
   "config": {
