@@ -1,10 +1,9 @@
 const path = require("path");
-
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const resolve = filename => path.resolve(__dirname, filename);
 
 module.exports = {
   entry: "./src/index.ts",
-  devtool: "inline-source-map",
   output: {
     path: resolve("../dist"),
     filename: "main.js"
@@ -18,6 +17,7 @@ module.exports = {
       }
     ]
   },
+  plugins: [new CleanWebpackPlugin()],
   resolve: {
     extensions: [".ts", ".js"]
   }

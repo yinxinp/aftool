@@ -2,10 +2,10 @@
   "name": "aftool",
   "version": "2.0.0",
   "description": "aftool 个人用的一些基本库",
-  "main": "./dist/aftool.js",
+  "main": "./dist/main.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "jest",
+    "test": "npx jest",
     "dev": "webpack --config ./build/webpack.dev.js",
     "build": "webpack --config ./build/webpack.prod.js"
   },
@@ -19,11 +19,24 @@
     "@babel/preset-typescript": "^7.12.7",
     "@types/jest": "^26.0.15",
     "babel-jest": "^26.6.3",
+    "clean-webpack-plugin": "^3.0.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^4.3.6",
     "jest": "^26.6.3",
     "ts-loader": "^8.0.11",
     "typescript": "^4.1.2",
     "webpack": "^5.8.0",
     "webpack-cli": "^4.2.0",
     "webpack-merge": "^5.4.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
