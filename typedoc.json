@@ -4,5 +4,5 @@
   "exclude": "**/node_modules/**/*.*",
   "excludeExternals": true,
   "name": "aftool",
-  "readme": "README.MD"
+  "readme": "README.md"
 }
