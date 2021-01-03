@@ -17,7 +17,6 @@ test("ArrayUtil", () => {
   ];
   const test01 = a();
   const removeItems = ArrayUtil.remove(test01, item => /s/.test(item.name));
-  console.log("test01", test01);
   expect(removeItems.length).toBe(2);
   expect(test01.length).toBe(3);
   expect(test01[1].name).toBe("exaa");
