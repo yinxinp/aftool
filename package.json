@@ -3,16 +3,20 @@
   "version": "2.0.0",
   "description": "aftool 个人用的一些基本库",
   "main": "./dist/main.js",
-  "types": "./dist/index.d.ts",
+  "types": "./types/src/index.d.ts",
   "scripts": {
     "test": "npx jest",
     "dev": "webpack --config ./build/webpack.dev.js",
-    "build": "webpack --config ./build/webpack.prod.js"
+    "build": "npm run test && webpack --config ./build/webpack.prod.js"
   },
   "keywords": [],
   "author": "yinxinp",
   "license": "MIT",
   "private": false,
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "core-js": "^3.8.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
@@ -21,6 +25,7 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@types/jest": "^26.0.15",
     "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^4.3.6",
@@ -41,5 +46,10 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "files": [
+    "dist",
+    "types",
+    "package.json"
+  ]
 }

@@ -1,4 +1,4 @@
-import { predicate } from "../types/common";
+import { predicate } from "../global_types/common";
 export class ArrayUtil {
   /**
    * 移除数组中符合条件的元素（操作原数组）
