@@ -1,0 +1,8 @@
+{
+  "entryPoints": ["./src/index.ts"],
+  "out": "./docs",
+  "exclude": "**/node_modules/**/*.*",
+  "excludeExternals": true,
+  "name": "aftool",
+  "readme": "README.MD"
+}

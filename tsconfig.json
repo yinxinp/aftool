@@ -9,7 +9,7 @@
     "baseUrl": ".",
     "declaration": true,
     "declarationDir": "types",
-    "typeRoots": ["global_types"],
+    "typeRoots": ["global-types"],
     "paths": {
       "@/*": ["src/*"]
     }

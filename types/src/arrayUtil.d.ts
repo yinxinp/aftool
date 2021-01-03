@@ -1,4 +1,4 @@
-import { predicate } from "../global_types/common";
+import { predicate } from "../global-types/common";
 export declare class ArrayUtil {
     /**
      * 移除数组中符合条件的元素（操作原数组）
@@ -28,7 +28,7 @@ export declare class ArrayUtil {
      * @returns {[string]:any}
      */
     static flatToMap<T extends {
-        [key: string]: any;
+        [key: string]: unknown;
     }>(tree?: T[], config?: {
         keyProp: string;
         childProp: string;
