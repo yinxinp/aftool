@@ -1,0 +1,10 @@
+/.idea
+.project
+*.launch
+.settings/
+*.sublime-workspace
+/node_modules
+/tmp
+.DS_Store
+/srcback
+/dist
