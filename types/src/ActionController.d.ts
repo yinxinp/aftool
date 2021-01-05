@@ -22,12 +22,12 @@ export declare class ActionController {
      * 防抖
      * @param args 参数
      */
-    debounce(...args: unknown[]): void;
+    debounce: (...args: unknown[]) => void;
     /**
      * 节流
      * @param args 参数
      */
-    throttle(...args: unknown[]): void;
+    throttle: (...args: unknown[]) => void;
     private goWhat;
 }
 /**
