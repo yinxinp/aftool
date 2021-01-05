@@ -39,7 +39,7 @@ export class ActionController {
    * 防抖
    * @param args 参数
    */
-  debounce(...args: unknown[]): void {
+  debounce = (...args: unknown[]): void => {
     this.goWhat(args)("debounceObj")
   }
 
@@ -47,11 +47,11 @@ export class ActionController {
    * 节流
    * @param args 参数
    */
-  throttle(...args: unknown[]): void {
+  throttle = (...args: unknown[]): void => {
     this.goWhat(args)("throttleObject")
   }
 
-  private goWhat(args: unknown[]) {
+  private goWhat = (args: unknown[]) => {
     return (actionName: "debounceObj" | "throttleObject") => {
       this[actionName].func(...args)
     }
