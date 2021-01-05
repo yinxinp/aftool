@@ -19,23 +19,17 @@ export interface ActionControllerParams {
  */
 export class ActionController {
   constructor(actionParams: ActionControllerParams) {
-    const debounceDelay =
-      actionParams.debounceDelay || actionParams.delay || 300
-    const throttleDelay =
-      actionParams.throttleDelay || actionParams.delay || 300
+    const debounceDelay = actionParams.debounceDelay || actionParams.delay || 300
+    const throttleDelay = actionParams.throttleDelay || actionParams.delay || 300
     this.debounceObj = {
       action: actionParams.debounceAction,
       delay: debounceDelay,
-      func:
-        actionParams.debounceAction &&
-        debounce(actionParams.debounceAction, debounceDelay)
+      func: actionParams.debounceAction && debounce(actionParams.debounceAction, debounceDelay)
     }
     this.throttleObject = {
       action: actionParams.throttleAction,
       delay: throttleDelay,
-      func:
-        actionParams.throttleAction &&
-        throttle(actionParams.throttleAction, throttleDelay)
+      func: actionParams.throttleAction && throttle(actionParams.throttleAction, throttleDelay)
     }
   }
   private debounceObj: ActionObject
@@ -91,8 +85,8 @@ export const throttle = (fn: ActionFunc, delay: number): ActionFunc => {
   return (...args: []) => {
     const now = +Date.now()
     if (now > last + delay) {
-      last = now
       fn(...args)
     }
+    last = now
   }
 }
