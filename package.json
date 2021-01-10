@@ -5,7 +5,7 @@
   "main": "./dist/main.js",
   "types": "./types/src/index.d.ts",
   "scripts": {
-    "test": "npm run lint &&  npx jest",
+    "test": "npm run lint &&  npx jest --coverage",
     "dev": "webpack --config ./build/webpack.dev.js",
     "build": "npm run test && webpack --config ./build/webpack.prod.js && npx typedoc",
     "lint": "npx eslint -f unix \"{src,global_types}/**/*.{ts,tsx}\""
@@ -49,7 +49,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": " npm run test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
