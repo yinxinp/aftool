@@ -297,3 +297,4 @@ __pycache__/
 
 # 自定义规则
 dist
+coverage

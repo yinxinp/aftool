@@ -1,10 +1,10 @@
-import { ActionControllers } from "../src"
+import { ActionsController } from "../src"
 it("ActionControllers", done => {
   const testFunc = jest.fn()
   const testFunc2 = jest.fn()
   const testThrottleFunc = jest.fn()
 
-  const controller = new ActionControllers({
+  const controller = new ActionsController({
     testFunc2: {
       action: testFunc2,
       delay: 400

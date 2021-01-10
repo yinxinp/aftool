@@ -3,7 +3,7 @@ import { debounce, throttle, ActionFunc } from "./actionController"
 /**
  * ActionControllers 构造函数中的配置项类型
  */
-export type ActionControllersItem = {
+export type ActionsControllerItem = {
   action: ActionFunc
   delay?: number
   type?: "debounce" | "throttle"
@@ -15,13 +15,13 @@ interface IActionControllers {
 /**
  * 节流函数防抖函数容器
  */
-export class ActionControllers implements IActionControllers {
+export class ActionsController implements IActionControllers {
   /**
    *
    * @param config 防抖节流函数配置
    * @param globalDelay 全局延迟
    */
-  constructor(config: { [key: string]: ActionControllersItem | ActionFunc }, globalDelay = 300) {
+  constructor(config: { [key: string]: ActionsControllerItem | ActionFunc }, globalDelay = 300) {
     Object.entries(config).forEach(([key, value]) => {
       if (typeof value === "function") {
         this[key] = debounce(value, globalDelay)
