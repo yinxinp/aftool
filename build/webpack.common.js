@@ -1,12 +1,13 @@
-const path = require("path");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const resolve = filename => path.resolve(__dirname, filename);
+const path = require("path")
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
+const resolve = filename => path.resolve(__dirname, filename)
 
 module.exports = {
   entry: "./src/index.ts",
   output: {
     path: resolve("../dist"),
-    filename: "main.js"
+    filename: "main.js",
+    libraryExport: "default"
   },
   module: {
     rules: [
@@ -21,4 +22,4 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".js"]
   }
-};
+}
