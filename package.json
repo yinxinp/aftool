@@ -8,7 +8,8 @@
     "test": "npm run lint &&  npx jest --coverage",
     "dev": "webpack --config ./build/webpack.dev.js",
     "build": "npm run test && webpack --config ./build/webpack.prod.js && npx typedoc",
-    "lint": "npx eslint -f unix \"{src,global_types}/**/*.{ts,tsx}\""
+    "lint": "npx eslint -f unix \"{src,global_types}/**/*.{ts,tsx}\"",
+    "commit": "git add . &&  npm run test && git cz"
   },
   "keywords": [
     "防抖",
