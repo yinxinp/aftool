@@ -1,10 +1,4 @@
 import * as utils from "./utils";
-interface StandardizedType {
-  labelProp?: any;
-  valueProp?: string;
-  keyProp?: string;
-  childrenProp?: string;
-}
 /**
  * 树的基本操作
  */
@@ -18,18 +12,14 @@ interface StandardizedType {
  * @param childrenProp 子映射的字段名称
  * @param containMeta 是否包含元数据 默认false
  */
-const standardized = (
-  treeNodes: any[],
-  config: StandardizedType = {},
-  containMeta = false
-): any[] => {
+const standardized = (treeNodes, config = {}, containMeta = false) => {
   let {
     labelProp = "label",
     valueProp = "value",
     keyProp = "key",
-    childrenProp = "children"
+    childrenProp = "children",
   } = config;
-  const result: any[] = treeNodes.map((node: any) => {
+  const result = treeNodes.map((node) => {
     let children = node[childrenProp];
     if (children) {
       children = standardized(
@@ -38,7 +28,7 @@ const standardized = (
           labelProp,
           valueProp,
           keyProp,
-          childrenProp
+          childrenProp,
         },
         containMeta
       );
@@ -52,12 +42,12 @@ const standardized = (
       title = labelProp(node);
     } else {
       const splitLabel = labelProp.split(".");
-      title = splitLabel.reduce((prev: any, current: any) => {
+      title = splitLabel.reduce((prev, current) => {
         return prev[current];
       }, node);
     }
     const key = node[keyProp];
-    let temp: any = {};
+    let temp = {};
     temp["value"] = value;
     temp["label"] = title;
     temp["key"] = key;
@@ -79,14 +69,10 @@ const standardized = (
  * @param filter 过滤符合条件的树
  * @param autoKey 是否自动加上一个key字段
  */
-const flatTree = (
-  treeData: any[],
-  filter: Function,
-  autoKey?: boolean
-): any[] => {
+const flatTree = (treeData, filter, autoKey) => {
   if (Array.isArray(treeData)) {
-    let result: any[] = [];
-    treeData.forEach((data: any) => {
+    let result = [];
+    treeData.forEach((data) => {
       const { children, ...other } = data;
       (filter && filter(other) && result.push(other)) ||
         (!filter && result.push(other));
@@ -100,7 +86,7 @@ const flatTree = (
   return [];
 };
 
-function addKey(list: any[]) {
+function addKey(list) {
   return list.map((x, i) => {
     return { ...x, key: i };
   });
@@ -110,25 +96,21 @@ function addKey(list: any[]) {
  * 展平树成一个hashMap的格式
  * @param treeData 树
  * @param foldKey 要根据哪个属性展开树 默认是id，注意这个值是唯一的才行
- * @param hasChildren 要不要返回带children的结构
+ * @param containChild 要不要返回带children的结构
  */
-const toMap = (
-  treeData: any[],
-  foldKey = "id",
-  hasChildren?: boolean
-): Object => {
-  let result: Object = {};
+const toMap = (treeData, foldKey = "id", containChild = false) => {
+  let result = {};
   if (Array.isArray(treeData)) {
-    result = treeData.reduce((prev, current: any) => {
-      let childResult: Object = {};
+    result = treeData.reduce((prev, current) => {
+      let childResult = {};
       const { children, ...other } = current;
       if (children) {
-        childResult = toMap(current.children, foldKey, hasChildren);
+        childResult = toMap(current.children, foldKey, containChild);
       }
       return {
         ...prev,
-        [current[foldKey]]: hasChildren ? current : other,
-        ...childResult
+        [current[foldKey]]: containChild ? current : other,
+        ...childResult,
       };
     }, {});
     return result;
@@ -143,19 +125,14 @@ const toMap = (
  * @param  addFunc 向每一项中添加新元素 (item,deep) => condition return Boolean
  * @param  addFunc 当前树的初始深度 一般不配置
  */
-const fliter = (
-  tree: any[],
-  func: Function,
-  addFunc?: Function,
-  index?: number
-): any[] => {
+const filter = (tree, func, addFunc, index) => {
   let myIndex = index || 0;
-  return tree.reduce((prev: any[], current: any) => {
+  return tree.reduce((prev, current) => {
     if (func && !func(current, myIndex)) return prev;
     const additem = (addFunc && addFunc(current, myIndex)) || {};
     if (current.children) {
       let { children: currentChildren, ...currentItem } = current;
-      let children = fliter(currentChildren, func, addFunc, myIndex + 1);
+      let children = filter(currentChildren, func, addFunc, myIndex + 1);
       if (children.length !== 0) {
         currentItem = { ...currentItem, children };
       }
@@ -171,21 +148,17 @@ const fliter = (
  * @param conditions 搜索条件
  * @param containChildren 查询结果是否包含子
  */
-function search(
-  treeData: Array<Object>,
-  conditions: any,
-  containChildren?: Boolean
-): Array<any> {
+function search(treeData, conditions, containChildren) {
   if (utils.isAllNullorUndefined(conditions)) {
     return treeData;
   }
   let contitionsKeys = Object.keys(conditions);
-  let results: Array<any> = [];
+  let results = [];
   const normalType = ["boolean", "number"];
-  treeData.forEach((x: any) => {
+  treeData.forEach((x) => {
     const { children, ...other } = x;
-    const isOk = contitionsKeys.every(contitionsKey => {
-      const condition: any = conditions[contitionsKey];
+    const isOk = contitionsKeys.every((contitionsKey) => {
+      const condition = conditions[contitionsKey];
       if (condition === null || typeof condition === "undefined") {
         //当查询条件为空我们默认查询匹配全部
         return true;
@@ -202,11 +175,11 @@ function search(
       throw "查询条件不是支持的类型，支持string,number,boolean,function";
     });
     if (isOk) {
-      const currentResult: any = containChildren ? x : other;
+      const currentResult = containChildren ? x : other;
       results.push(currentResult);
     }
     if (children) {
-      const tempResult: Array<any> = search(children, conditions);
+      const tempResult = search(children, conditions);
       results = [...results, ...tempResult];
     }
   });
@@ -217,10 +190,10 @@ function search(
  * @param tree 源
  * @param func 过滤函数
  */
-function find(tree: any[], func: Function): any {
+function find(tree, func) {
   const length = tree.length;
   for (let i = 0; i < length; i++) {
-    const currentItem: any = tree[i];
+    const currentItem = tree[i];
     if (func(currentItem)) return currentItem;
     const { children } = currentItem;
     if (children) {
@@ -234,9 +207,9 @@ function find(tree: any[], func: Function): any {
 }
 
 export default {
-  fliter,
+  filter,
   search,
   find,
   standardized,
-  toMap
+  toMap,
 };
