@@ -1,3 +1,1 @@
-export declare class KeyUtil {
-    static guid(seed?: string): string;
-}
+export declare function guid(seed?: string): string;

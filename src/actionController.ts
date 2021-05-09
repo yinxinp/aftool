@@ -1,4 +1,6 @@
-export type ActionFunc = (...args: unknown[]) => void
+import { Callback } from "global-types/common"
+
+export type ActionFunc = Callback<unknown>
 
 export type ActionObject = {
   func?: ActionFunc

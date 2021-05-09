@@ -1,6 +1,6 @@
 {
   "name": "aftool",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "aftool 个人用的一些基本库",
   "main": "./dist/main.js",
   "types": "./types/src/index.d.ts",
@@ -17,7 +17,7 @@
     "Array",
     "Tree"
   ],
-  "author": "yinxinp",
+  "author": "dairsaber",
   "license": "MIT",
   "private": false,
   "dependencies": {
@@ -42,7 +42,7 @@
     "husky": "^4.3.6",
     "jest": "^26.6.3",
     "ts-loader": "^8.0.11",
-    "typedoc": "^0.20.10",
+    "typedoc": "^0.20.36",
     "typescript": "^4.1.2",
     "webpack": "^5.8.0",
     "webpack-cli": "^4.2.0",
